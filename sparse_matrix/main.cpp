@@ -103,7 +103,34 @@ bool load_part ()
     cout << "please wait ....\n" ;
     return false;
 }
-
+void load_from_file (long long * row_array)
+{
+    string path = __FILE__ ;
+    path += "\\..\\"  +  selected_file ;
+    QFile mat (QString::fromStdString( path )) ;
+    if (!mat.open(QIODevice::ReadOnly | QFile::Text) && mat.exists())
+    {
+        qInfo() << mat.errorString() << __LINE__ << "\n" ;
+        cout << "file does not work please close and re open program !\n" ;
+        return ;
+    }
+    QTextStream matqts (&mat) ;
+    matqts.seek(0) ;
+    int i =0 ;
+    while (!matqts.atEnd())
+    {
+        QString line = matqts.readLine() ;
+        QStringList index = line.split(QLatin1Char(',')) ;
+        link_list<ll> * tmp = (link_list<ll>*) row_array[i] ;
+        for (int k=0 ; k<index.size() ; k++)
+        {
+            if (index.at(k) != '0')
+                tmp->add_last(index.at(k).toLongLong() , k) ;
+        }
+        i++ ;
+    }
+    mat.close() ;
+}
 
 
 
@@ -123,6 +150,7 @@ int main(void)
         link_list<ll> * tmp = new link_list<ll> () ;
         row_array[i] = (long long) tmp ;
     }
+    load_from_file (row_array) ;
     delete [] row_array ;
     return 0;
 }
