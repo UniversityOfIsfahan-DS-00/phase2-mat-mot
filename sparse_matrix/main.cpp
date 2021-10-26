@@ -169,7 +169,27 @@ void insert (ll row , ll col , ll value , ll*row_list )
     }
     cout << "insert was not successful !\n" ;
 }
-
+void delete_node (ll row , ll col , ll *row_list)
+{
+    link_list<ll> *tmp = (link_list<ll>*) row_list[row] ;
+    if (tmp->isempty())
+    {
+        cout << "delete was not successful !\n" ;
+        return;
+    }
+    node<ll> *tt = tmp->getHead() ;
+    while (tt)
+    {
+        if (tt->columnindex == col)
+        {
+            tmp->remove(tt) ;
+            cout << "delete was successful !\n" ;
+            return;
+        }
+        tt = tt->next ;
+    }
+    cout << "delete was not successful !\n" ;
+}
 
 
 
@@ -194,7 +214,7 @@ bool process_part (ll * row_list)
             label_print("process") ;
             cout << "please enter row & col & value in right order to continue !\n" ;
             cin >> row >> col >> value ;
-            //insert (row , col , value , row_list) ;
+            insert (row , col , value , row_list) ;
             system("pause") ;
         }
         else if (i==1)
@@ -203,7 +223,7 @@ bool process_part (ll * row_list)
             label_print("process") ;
             cout << "please enter row & col of node that you want to deleted !\n" ;
             cin >> row >> col ;
-            //delete_node ( row , col ,row_list ) ;
+            delete_node ( row , col ,row_list ) ;
             system("pause") ;
         }
         else if (i==2)
