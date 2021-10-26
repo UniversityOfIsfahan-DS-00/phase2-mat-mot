@@ -208,7 +208,22 @@ void search (ll value , ll*row_list)
     }
     cout << "your searched value doesn't exist !\n" ;
 }
-
+void update (ll row , ll col , ll value , ll* row_list)
+{
+    link_list<ll> *tmp = (link_list<ll>*) row_list[row] ;
+    node<ll> *tt = tmp->getHead() ;
+    while (tt)
+    {
+        if (tt->columnindex == col )
+        {
+            tt->value = value ;
+            cout << "update was successful !\n" ;
+            return;
+        }
+        tt = tt->next ;
+    }
+    cout << "update wasn't successful !\n" ;
+}
 
 
 bool process_part (ll * row_list)
@@ -258,7 +273,7 @@ bool process_part (ll * row_list)
             label_print("process") ;
             cout << "please enter row & col & value of node that you want to updated !\n" ;
             cin >> row >> col >> value ;
-            //update(row,col,value,row_list) ;
+            update(row,col,value,row_list) ;
             system("pause");
         }
         else if (i==4)
