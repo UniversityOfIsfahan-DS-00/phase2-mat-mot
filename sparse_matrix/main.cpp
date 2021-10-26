@@ -265,7 +265,46 @@ void print (bool type , ll* row_list)
         cout << "print in type 1 was successful !\n" ;
     }
 }
-
+void save_to_file (ll* row_list)
+{
+    string path = __FILE__ ;
+    path += "\\..\\"  +  selected_file ;
+    QFile mat (QString::fromStdString( path )) ;
+    if (!mat.open(QIODevice::WriteOnly) && mat.exists())
+    {
+        qInfo() << mat.errorString() << __LINE__ << "\n" ;
+        cout << "file does not work please close and re open program !\n" ;
+        return ;
+    }
+    QTextStream matqts (&mat) ;
+    matqts.seek(0) ;
+    ll array [row][col] ;
+    for (ll i=0 ; i<row;i++)
+        for (ll j=0;j<col;j++)
+            array[i][j] =0 ;
+    for (ll i=0 ; i<row ; i++)
+    {
+        link_list<ll> *tmp = (link_list<ll>*) row_list[i] ;
+        node<ll> *tt = tmp->getHead() ;
+        while (tt)
+        {
+            array[i][tt->columnindex] = tt->value ;
+            tt = tt->next ;
+        }
+    }
+    for (ll i=0 ; i<row  ;i++)
+    {
+        QString ttmp ;
+        for (ll j=0;j<col;j++)
+            ttmp +=QString::number( array[i][j]) + "," ;
+        int a = ttmp.length() ;
+        ttmp = QString::fromStdString( ttmp.toStdString().substr(0 , a-1)) ;
+        ttmp += "\r\n" ;
+        matqts << ttmp ;
+    }
+    cout << "matrix successfuly saved to file !\n" ;
+    mat.close() ;
+}
 bool process_part (ll * row_list)
 {
     int i ;
@@ -329,7 +368,7 @@ bool process_part (ll * row_list)
         {
             system("cls") ;
             label_print("process") ;
-            //save_to_file (row_list) ;
+            save_to_file (row_list) ;
             system("pause") ;
         }
         else if (i==6)
