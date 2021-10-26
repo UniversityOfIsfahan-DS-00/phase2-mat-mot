@@ -137,7 +137,82 @@ void load_from_file (long long * row_array)
 
 
 
-
+bool process_part (ll * row_list)
+{
+    int i ;
+    while (true)
+    {
+        system("cls") ;
+        label_print("process") ;
+        QString hint ;
+        hint += "code table :\n0. for insert the node.\n1. for delet the node.\n2. for search a node in matrix.\n" ;
+        hint += "3. for update the node.\n4. for print a matrix in two diffrente ways.\n5. for save change to file.\n" ;
+        hint += "6. for trun back and choose other file (careful may your change doesn't apply).\n7. for exit and close program.\n" ;
+        cout << hint.toStdString() << "enter you code : ";
+        cin >> i ;
+        ll row , col , value ;
+        if (i==0)
+        {
+            system("cls") ;
+            label_print("process") ;
+            cout << "please enter row & col & value in right order to continue !\n" ;
+            cin >> row >> col >> value ;
+            //insert (row , col , value , row_list) ;
+            system("pause") ;
+        }
+        else if (i==1)
+        {
+            system("cls") ;
+            label_print("process") ;
+            cout << "please enter row & col of node that you want to deleted !\n" ;
+            cin >> row >> col ;
+            //delete_node ( row , col ,row_list ) ;
+            system("pause") ;
+        }
+        else if (i==2)
+        {
+            system("cls") ;
+            label_print("process") ;
+            cout << "please enter value that you want to search !\n" ;
+            cin >> value ;
+            //search (value , row_list) ;
+            system("pause");
+        }
+        else if (i==3)
+        {
+            system("cls") ;
+            label_print("process") ;
+            cout << "please enter row & col & value of node that you want to updated !\n" ;
+            cin >> row >> col >> value ;
+            //update(row,col,value,row_list) ;
+            system("pause");
+        }
+        else if (i==4)
+        {
+            system("cls") ;
+            label_print("process") ;
+            cout << "for print matrix orginaly with full index enter 0\nandfor print matrix in compress mode with few index enter 1: \n" ;
+            cin >> row ;
+            //print ((bool)row , row_list) ;
+            system("pause");
+        }
+        else if (i==5)
+        {
+            system("cls") ;
+            label_print("process") ;
+            //save_to_file (row_list) ;
+            system("pause") ;
+        }
+        else if (i==6)
+        {
+            return true;
+        }
+        else if (i==7)
+        {
+            return false;
+        }
+    }
+}
 int main(void)
 {
     if (load_part())
@@ -151,6 +226,11 @@ int main(void)
         row_array[i] = (long long) tmp ;
     }
     load_from_file (row_array) ;
+    if (!process_part (row_array) )
+    {
+        delete [] row_array ;
+        return 0;
+    }
     delete [] row_array ;
     return 0;
 }
