@@ -224,7 +224,47 @@ void update (ll row , ll col , ll value , ll* row_list)
     }
     cout << "update wasn't successful !\n" ;
 }
-
+void print (bool type , ll* row_list)
+{
+    if (type == 0)
+    {
+        ll array [row][col] ;
+        for (ll i=0 ; i<row;i++)
+            for (ll j=0;j<col;j++)
+                array[i][j] =0 ;
+        for (ll i=0 ; i<row ; i++)
+        {
+            link_list<ll> *tmp = (link_list<ll>*) row_list[i] ;
+            node<ll> *tt = tmp->getHead() ;
+            while (tt)
+            {
+                array[i][tt->columnindex] = tt->value ;
+                tt = tt->next ;
+            }
+        }
+        for (ll i=0 ; i<row;i++)
+        {
+            for (ll j=0;j<col;j++)
+                cout << array[i][j] << "\t" ;
+            cout << "\n" ;
+        }
+        cout << "print in type 0 was successful !\n" ;
+    }
+    else if (type ==1)
+    {
+        for (ll i=0 ; i<row ; i++)
+        {
+            link_list<ll> *tmp = (link_list<ll>*) row_list[i] ;
+            node<ll> *tt = tmp->getHead() ;
+            while (tt)
+            {
+                cout << i << " " << tt->columnindex << " " << tt->value << "\n" ;
+                tt = tt->next ;
+            }
+        }
+        cout << "print in type 1 was successful !\n" ;
+    }
+}
 
 bool process_part (ll * row_list)
 {
@@ -282,7 +322,7 @@ bool process_part (ll * row_list)
             label_print("process") ;
             cout << "for print matrix orginaly with full index enter 0\nandfor print matrix in compress mode with few index enter 1: \n" ;
             cin >> row ;
-            //print ((bool)row , row_list) ;
+            print ((bool)row , row_list) ;
             system("pause");
         }
         else if (i==5)
