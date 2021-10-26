@@ -297,8 +297,7 @@ void save_to_file (ll* row_list)
         QString ttmp ;
         for (ll j=0;j<col;j++)
             ttmp +=QString::number( array[i][j]) + "," ;
-        int a = ttmp.length() ;
-        ttmp = QString::fromStdString( ttmp.toStdString().substr(0 , a-1)) ;
+        ttmp = QString::fromStdString( ttmp.toStdString().substr(0 , (ttmp.length()-1))) ;
         ttmp += "\r\n" ;
         matqts << ttmp ;
     }
