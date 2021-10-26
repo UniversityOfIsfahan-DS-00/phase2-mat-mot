@@ -190,7 +190,24 @@ void delete_node (ll row , ll col , ll *row_list)
     }
     cout << "delete was not successful !\n" ;
 }
-
+void search (ll value , ll*row_list)
+{
+    for (ll i=0 ; i <row ; i++)
+    {
+        link_list<ll> *tmp = (link_list<ll>*) row_list[i] ;
+        node<ll> * tt = tmp->getHead() ;
+        while (tt)
+        {
+            if (tt->value == value )
+            {
+                cout << "your searched value location is : " << i << "," << tt->columnindex << "\n" ;
+                return;
+            }
+            tt = tt->next ;
+        }
+    }
+    cout << "your searched value doesn't exist !\n" ;
+}
 
 
 
@@ -232,7 +249,7 @@ bool process_part (ll * row_list)
             label_print("process") ;
             cout << "please enter value that you want to search !\n" ;
             cin >> value ;
-            //search (value , row_list) ;
+            search (value , row_list) ;
             system("pause");
         }
         else if (i==3)
