@@ -131,7 +131,44 @@ void load_from_file (long long * row_array)
     }
     mat.close() ;
 }
+void insert (ll row , ll col , ll value , ll*row_list )
+{
+    link_list<ll> *tmp = (link_list<ll>*) row_list[row] ;
+    if (tmp->isempty())
+    {
+        tmp->add_first(value , col);
+        cout << "insert was successful !\n" ;
+        return;
+    }
+    if (tmp->getHead()->columnindex >= col )
+    {
+        tmp->add_first(value , col) ;
+        cout << "insert was successful !\n" ;
+        return;
+    }
+    else if (tmp->getTail()->columnindex < col )
+    {
+        tmp->add_last(value , col) ;
+        cout << "insert was successful !\n" ;
+        return;
+    }
+    else
+    {
+        node<ll> * tt = tmp->getHead() ;
+        while (tt)
+        {
+            if (tt->columnindex < col && col > tt->next->value)
+            {
+                tmp->add_between(tt , value , col , tt->next) ;
+                cout << "insert was successful !\n" ;
+                return;
+            }
+            tt = tt->next ;
+        }
 
+    }
+    cout << "insert was not successful !\n" ;
+}
 
 
 
@@ -215,22 +252,25 @@ bool process_part (ll * row_list)
 }
 int main(void)
 {
-    if (load_part())
+    while (true)
     {
-        return 0;
-    }
-    long long * row_array = new long long [row] ;
-    for (ll i=0 ; i<row ;i++)
-    {
-        link_list<ll> * tmp = new link_list<ll> () ;
-        row_array[i] = (long long) tmp ;
-    }
-    load_from_file (row_array) ;
-    if (!process_part (row_array) )
-    {
+        if (load_part())
+        {
+            return 0;
+        }
+        long long * row_array = new long long [row] ;
+        for (ll i=0 ; i<row ;i++)
+        {
+            link_list<ll> * tmp = new link_list<ll> () ;
+            row_array[i] = (long long) tmp ;
+        }
+        load_from_file (row_array) ;
+        if (!process_part (row_array) )
+        {
+            delete [] row_array ;
+            return 0;
+        }
         delete [] row_array ;
-        return 0;
     }
-    delete [] row_array ;
     return 0;
 }
